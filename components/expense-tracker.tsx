@@ -47,7 +47,7 @@ export default function ExpenseTracker() {
 
 
   function formatRupiah(number: number): string {
-    return new Intl.NumberFormat('id-ID', { style: 'currency', currency: 'IDR' }).format(number);
+    return new Intl.NumberFormat('id-ID', { style: 'currency', currency: 'IDR', maximumSignificantDigits: 1 }).format(number);
   }
 
   // useEffect to load expenses from local storage or set initial expenses
