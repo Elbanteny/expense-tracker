@@ -47,7 +47,7 @@ export default function ExpenseTracker() {
 
 
   function formatRupiah(number: number): string {
-    return new Intl.NumberFormat('id-ID', { style: 'currency', currency: 'IDR', maximumSignificantDigits: 1 }).format(number);
+    return new Intl.NumberFormat('id-ID', { style: 'currency', currency: 'IDR', minimumFractionDigits: 0, maximumFractionDigits: 0 }).format(number);
   }
 
   // useEffect to load expenses from local storage or set initial expenses
@@ -81,7 +81,7 @@ export default function ExpenseTracker() {
   // Function to handle adding a new expense
   const handleAddExpense = (): void => {
     if (!newExpense.name || !newExpense.amount || !newExpense.date) {
-      alert("Please fill out all fields.");
+      alert("Tolong isi terlebih dahulu.");
       return;
     }
     setExpenses([
@@ -139,13 +139,12 @@ export default function ExpenseTracker() {
   // Function to handle deleting an expense
   const handleDeleteExpense = (id: number): void => {
     const updatedExpenses: any = setExpenses(expenses.filter((expense) => expense.id !== id));
-    // setExpenses(updatedExpenses);
     localStorage.setItem('expenses', JSON.stringify(updatedExpenses));
   };
 
   // Calculate the total expenses
-  const totalExpenses = (expenses?.length ? expenses : []).reduce(
-    (total, expense) => total + (expense?.amount || 0),
+  const totalExpenses = expenses.reduce(
+    (total, expense) => total + expense.amount,
     0
   );
 
